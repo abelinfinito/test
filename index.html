@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlyHacker pro</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .header {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 50px 0; /* Aumentei a margem superior */
+        }
+
+        .history-container {
+            display: none;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .history h2 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .history ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .history li {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .predictor {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 260px;
+            height: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .multiplier-display {
+            font-size: 42px;
+            font-weight: bold;
+            color: #FFEB3B;
+            margin-bottom: 20px;
+        }
+
+        .predict-button, .history-button {
+            padding: 10px 20px;
+            background: #00e5ff;
+            color: #1f1c2c;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .predict-button:hover, .history-button:hover {
+            background: #00bcd4;
+        }
+
+        .binary-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .binary-dot {
+            font-size: 20px;
+            color: #00FF00;
+            font-family: monospace;
+            animation: fall 0.5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100px); opacity: 0; }
+        }
+
+        .blue { background-color: #2196F3; color: #fff; }
+        .purple { background-color: #9C27B0; color: #fff; }
+        .pink { background-color: #E91E63; color: #fff; }
+
+        footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #ddd;
+            padding: 20px;
+        }
+
+        a {
+            color: #80DEEA;
+            text-decoration: none;
+        }
+
+        .connected-message {
+            font-size: 16px;
+            color: #ddd;
+            margin-top: 20px;
+        }
+
+        .elephantbet {
+            color: #E91E63; /* Rosa */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">FlyHacker pro</div>
+    <center>
+        <h4>100% de acerto</h4>
+
+        <button class="history-button" onclick="toggleHistory()">Ver Histórico de Velas</button>
+        <div class="history-container" id="historyContainer">
+            <div class="history">
+                <h2>Histórico de Velas</h2>
+                <ul id="historyList"></ul>
+            </div>
+        </div>
+
+        <div class="predictor">
+            <div class="multiplier-display" id="multiplier">0.00x</div>
+            <div class="binary-animation" id="binaryAnimation"></div>
+            <button class="predict-button" onclick="startAnimation()" id="predictBtn">Hackear vela</button>
+        </div>
+        <br><br>
+        <div class="connected-message">
+            Bot conectado com <span class="elephantbet">ElephantBet</span>
+        </div>
+    </center>
+
+    <footer>
+        Conectado com inteligência artificial GPT
+    </footer>
+
+    <script>
+        const fixedMultipliers = ["5.55x", "1.00x", "6.93x", "52.00x"];
+
+        function generateMultiplier() {
+            const display = document.getElementById("multiplier");
+            const button = document.getElementById("predictBtn");
+            const historyList = document.getElementById("historyList");
+
+            // Seleciona um valor fixo da lista
+            const newMultiplier = fixedMultipliers[Math.floor(Math.random() * fixedMultipliers.length)];
+            display.textContent = newMultiplier;
+            button.disabled = false;
+            button.style.display = "inline-block";
+
+            const newItem = document.createElement("li");
+            newItem.textContent = newMultiplier;
+
+            const value = parseFloat(newMultiplier.replace("x", ""));
+            if (value < 2.00) {
+                newItem.classList.add("blue");
+            } else if (value >= 2.00 && value < 10.00) {
+                newItem.classList.add("purple");
+            } else {
+                newItem.classList.add("pink");
+            }
+
+            historyList.insertBefore(newItem, historyList.firstChild);
+            if (historyList.children.length > 10) {
+                historyList.removeChild(historyList.lastChild);
+            }
+        }
+
+        function toggleHistory() {
+            const historyContainer = document.getElementById("historyContainer");
+            historyContainer.style.display = historyContainer.style.display === "none" ? "block" : "none";
+        }
+
+        function startAnimation() {
+            const animation = document.getElementById("binaryAnimation");
+            const button = document.getElementById("predictBtn");
+            const display = document.getElementById("multiplier");
+
+            display.textContent = "...";
+            button.style.display = "none";
+            animation.innerHTML = "";
+            animation.style.display = "flex";
+
+            for (let i = 0; i < 50; i++) {
+                const span = document.createElement("span");
+                span.className = "binary-dot";
+                span.textContent = Math.random() > 0.5 ? "1" : "0";
+                animation.appendChild(span);
+            }
+
+            setTimeout(() => {
+                animation.style.display = "none";
+                animation.innerHTML = "";
+                generateMultiplier();
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
