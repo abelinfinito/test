@@ -22,7 +22,7 @@
         .header {
             font-size: 28px;
             font-weight: 600;
-            margin: 50px 0; /* Aumentei a margem superior */
+            margin: 50px 0;
         }
 
         .history-container {
@@ -143,7 +143,7 @@
         }
 
         .elephantbet {
-            color: #E91E63; /* Rosa */
+            color: #E91E63;
         }
     </style>
 </head>
@@ -176,15 +176,17 @@
     </footer>
 
     <script>
-        const fixedMultipliers = ["5.55x", "1.00x", "6.93x", "52.00x"];
+        const fixedMultipliers = ["1.48x", "3.44x", "1.00x", "1.00x"];
+        let currentIndex = 0;
 
         function generateMultiplier() {
             const display = document.getElementById("multiplier");
             const button = document.getElementById("predictBtn");
             const historyList = document.getElementById("historyList");
 
-            // Seleciona um valor fixo da lista
-            const newMultiplier = fixedMultipliers[Math.floor(Math.random() * fixedMultipliers.length)];
+            const newMultiplier = fixedMultipliers[currentIndex];
+            currentIndex = (currentIndex + 1) % fixedMultipliers.length;
+
             display.textContent = newMultiplier;
             button.disabled = false;
             button.style.display = "inline-block";
@@ -238,6 +240,7 @@
     </script>
 </body>
 </html>
+
 
 
 
