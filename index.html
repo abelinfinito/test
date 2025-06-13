@@ -1,259 +1,258 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlyHacker pro</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 10px;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1f1c2c, #928dab);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SPA Hacker</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      text-align: center;
+      padding-top: 40px;
+    }
 
-        .header {
-            font-size: 28px;
-            font-weight: 600;
-            margin: 50px 0;
-        }
+    .header {
+      font-size: 30px;
+      font-weight: bold;
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
 
-        .history-container {
-            display: none;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
+    h4 {
+      color: #ccc;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
 
-        .history h2 {
-            margin: 0 0 10px;
-            font-size: 18px;
-        }
+    .predictor {
+      background: transparent;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 400px;
+      padding: 30px 0;
+      margin-bottom: 30px;
+    }
 
-        .history ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
+    .circle-wrapper {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 20px auto;
+    }
 
-        .history li {
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 14px;
-        }
+    .circle-wrapper .circle {
+      position: absolute;
+      top: 0; left: 0;
+      width: 140px;
+      height: 140px;
+      border: 4px solid #00ffff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 2.5s linear infinite;
+    }
 
-        .predictor {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            width: 260px;
-            height: 260px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            margin-top: 50px;
-            position: relative;
-        }
+    .circle-wrapper .number {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      font-weight: 700;
+      color: #FFEB3B;
+      user-select: none;
+      min-width: 90px;
+    }
 
-        .multiplier-display {
-            font-size: 42px;
-            font-weight: bold;
-            color: #FFEB3B;
-            margin-bottom: 20px;
-        }
+    @keyframes spin {
+      0% {transform: rotate(0deg);}
+      100% {transform: rotate(360deg);}
+    }
 
-        .predict-button, .history-button {
-            padding: 10px 20px;
-            background: #00e5ff;
-            color: #1f1c2c;
-            font-size: 16px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 5px;
-        }
+    button {
+      padding: 14px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 90%;
+      max-width: 320px;
+      margin: 10px auto;
+      display: block;
+      background: linear-gradient(to right, #00ffff, #0088ff);
+      color: #000;
+      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
+    }
 
-        .predict-button:hover, .history-button:hover {
-            background: #00bcd4;
-        }
+    button:hover {
+      filter: brightness(1.1);
+    }
 
-        .binary-animation {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
+    .msg {
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-left: 5px solid #00ffff;
+      border-radius: 8px;
+      display: none;
+      margin-top: 20px;
+    }
 
-        .binary-dot {
-            font-size: 20px;
-            color: #00FF00;
-            font-family: monospace;
-            animation: fall 0.5s linear infinite;
-        }
+    .history-container {
+      background: transparent;
+      border-radius: 16px;
+      padding: 15px 0;
+      margin-top: 5px;
+      width: 100%;
+      max-width: 400px;
+    }
 
-        @keyframes fall {
-            0% { transform: translateY(-100px); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(100px); opacity: 0; }
-        }
+    .history-container h3 {
+      margin-bottom: 10px;
+      color: #00ffff;
+    }
 
-        .blue { background-color: #2196F3; color: #fff; }
-        .purple { background-color: #9C27B0; color: #fff; }
-        .pink { background-color: #E91E63; color: #fff; }
+    .history ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
 
-        footer {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #ddd;
-            padding: 20px;
-        }
+    .history li {
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 14px;
+      min-width: 50px;
+      text-align: center;
+      color: #fff;
+    }
 
-        a {
-            color: #80DEEA;
-            text-decoration: none;
-        }
+    .green { background-color: #4CAF50; }
+    .blue { background-color: #2196F3; }
+    .orange { background-color: #FF9800; }
+    .purple { background-color: #9C27B0; }
+    .red { background-color: #F44336; }
+    .pink { background-color: #E91E63; }
 
-        .connected-message {
-            font-size: 16px;
-            color: #ddd;
-            margin-top: 20px;
-        }
+    .vip-buttons {
+      width: 90%;
+      max-width: 320px;
+      margin: 0 auto 30px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-        .elephantbet {
-            color: #E91E63;
-        }
-    </style>
+    footer {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #bbb;
+    }
+  </style>
 </head>
 <body>
-    <div class="header">FlyHacker pro</div>
-    <center>
-        <h4>100% de acerto</h4>
 
-        <button class="history-button" onclick="toggleHistory()">Ver Histórico de Velas</button>
-        <div class="history-container" id="historyContainer">
-            <div class="history">
-                <h2>Histórico de Velas</h2>
-                <ul id="historyList"></ul>
-            </div>
-        </div>
+  <div class="header">SPA Hacker</div>
+  <h4>O segredo dos campeões</h4>
 
-        <div class="predictor">
-            <div class="multiplier-display" id="multiplier">0.00x</div>
-            <div class="binary-animation" id="binaryAnimation"></div>
-            <button class="predict-button" onclick="startAnimation()" id="predictBtn">Hackear vela</button>
-        </div>
-        <br><br>
-        <div class="connected-message">
-            Bot conectado com <span class="elephantbet">ElephantBet</span>
-        </div>
-    </center>
+  <div class="predictor">
+    <div class="circle-wrapper">
+      <div class="circle"></div>
+      <div class="number" id="multiplier">0.00x</div>
+    </div>
 
-    <footer>
-        Conectado com inteligência artificial GPT
-    </footer>
+    <button onclick="startHack()" id="predictBtn">🚀 Hackear Próxima Vela</button>
+  </div>
 
-    <script>
-        const fixedMultipliers = ["14.74x", "1.22x", "1.36x","2.91x", "1.51x", "1.40x","1.32x", "1.98x", "90.21x", "3.70x"];
-        let currentIndex = 0;
+  <div class="vip-buttons">
+    <button onclick="location.href='sintronizar.html'">🔐 Sincronizar com Elephantbet</button>
+    <button onclick="location.href='sintronizar2.html'">👑 Acessar SPA HACHER SUPREMO</button>
+  </div>
 
-        function generateMultiplier() {
-            const display = document.getElementById("multiplier");
-            const button = document.getElementById("predictBtn");
-            const historyList = document.getElementById("historyList");
+  <div class="msg" id="mensagemBot"></div>
 
-            const newMultiplier = fixedMultipliers[currentIndex];
-            currentIndex = (currentIndex + 1) % fixedMultipliers.length;
+  <div class="history-container">
+    <h3>Histórico de Velas</h3>
+    <div class="history">
+      <ul id="historyList"></ul>
+    </div>
+  </div>
 
-            display.textContent = newMultiplier;
-            button.disabled = false;
-            button.style.display = "inline-block";
+  <footer>Conectado com inteligência artificial | <a href="https://gptonline.ai/" style="color: #00ffff;">GPTOnline.ai</a></footer>
 
-            const newItem = document.createElement("li");
-            newItem.textContent = newMultiplier;
+  <script>
+    const predefinedMultipliers = [1.88, 1.22, 1.00, 1.12, 1.10, 19.27, 8.12];
+    let currentIndex = 0;
 
-            const value = parseFloat(newMultiplier.replace("x", ""));
-            if (value < 2.00) {
-                newItem.classList.add("blue");
-            } else if (value >= 2.00 && value < 10.00) {
-                newItem.classList.add("purple");
-            } else {
-                newItem.classList.add("pink");
-            }
+    const colorClasses = {
+      low: "blue",     // Valores abaixo de 1.99
+      medium: "purple", // Valores entre 2.00 e 9.99
+      high: "pink"     // Valores de 10.00 para cima
+    };
 
-            historyList.insertBefore(newItem, historyList.firstChild);
-            if (historyList.children.length > 10) {
-                historyList.removeChild(historyList.lastChild);
-            }
-        }
+    function getColorClass(valueNum) {
+      if (valueNum >= 10.00) return colorClasses.high;
+      else if (valueNum >= 2.00) return colorClasses.medium;
+      else return colorClasses.low;
+    }
 
-        function toggleHistory() {
-            const historyContainer = document.getElementById("historyContainer");
-            historyContainer.style.display = historyContainer.style.display === "none" ? "block" : "none";
-        }
+    function generateRandomMultiplier() {
+      const value = predefinedMultipliers[currentIndex % predefinedMultipliers.length];
+      currentIndex++;
+      return value.toFixed(2);
+    }
 
-        function startAnimation() {
-            const animation = document.getElementById("binaryAnimation");
-            const button = document.getElementById("predictBtn");
-            const display = document.getElementById("multiplier");
+  function startHack() {
+  const display = document.getElementById("multiplier");
+  const historyList = document.getElementById("historyList");
+  const button = document.getElementById("predictBtn");
 
-            display.textContent = "...";
-            button.style.display = "none";
-            animation.innerHTML = "";
-            animation.style.display = "flex";
+  button.disabled = true; // Desativar botão temporariamente
+  const finalValue = parseFloat(generateRandomMultiplier());
 
-            for (let i = 0; i < 50; i++) {
-                const span = document.createElement("span");
-                span.className = "binary-dot";
-                span.textContent = Math.random() > 0.5 ? "1" : "0";
-                animation.appendChild(span);
-            }
+  let currentValue = 1.00;
+  const speed = 30;
+  const increment = (finalValue - currentValue) / 50;
 
-            setTimeout(() => {
-                animation.style.display = "none";
-                animation.innerHTML = "";
-                generateMultiplier();
-            }, 2000);
-        }
-    </script>
+  display.textContent = currentValue.toFixed(2) + "x";
+
+  const counterInterval = setInterval(() => {
+    if (currentValue >= finalValue) {
+      clearInterval(counterInterval);
+      display.textContent = finalValue.toFixed(2) + "x";
+
+      const li = document.createElement("li");
+      li.textContent = finalValue.toFixed(2) + "x";
+      li.classList.add(getColorClass(finalValue));
+
+      historyList.insertBefore(li, historyList.firstChild);
+      if (historyList.children.length > 12) {
+        historyList.removeChild(historyList.lastChild);
+      }
+
+      button.disabled = false; // Reativar botão
+    } else {
+      currentValue += increment;
+      display.textContent = currentValue.toFixed(2) + "x";
+    }
+  }, speed);
+}
+
+</script>
+
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
