@@ -1,259 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SPA Hacker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOTGPT - Inteligência Artificial para Aviator</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Arial', sans-serif;
+      background: #0a0a0a;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
       text-align: center;
-      padding-top: 10px;
     }
-
-    .header {
-      font-size: 25px;
-      font-weight: bold;
-      color: #00ffff;
-      margin-bottom: 10px;
+    header {
+      padding: 2rem 1rem;
     }
-
-    h4 {
-      color: #ccc;
-      font-size: 16px;
-      margin-bottom: 20px;
+    h1 {
+      color: #00ffae;
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
     }
-
-    .predictor {
-      background: transparent;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 400px;
-      padding: 25px 0;
-      margin-bottom: 30px;
+    p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      padding: 0 1rem;
     }
-
-    .circle-wrapper {
-      position: relative;
-      width: 140px;
-      height: 100px;
-      margin: 0 auto 20px auto;
+    .download-section {
+      margin: 2rem 0;
     }
-
-    .circle-wrapper .circle {
-      position: absolute;
-      top: 0; left: 0;
-      width: 140px;
-      height: 140px;
-      border: 4px solid #00ffff;
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: spin 2.5s linear infinite;
-    }
-
-    .circle-wrapper .number {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 40px;
-      font-weight: 700;
-      color:rgb(238, 27, 150);
-      user-select: none;
-      min-width: 90px;
-    }
-
-    @keyframes spin {
-      0% {transform: rotate(0deg);}
-      100% {transform: rotate(360deg);}
-    }
-
-    button {
-      padding: 14px 30px;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 90%;
-      max-width: 320px;
-      margin: 10px auto;
-      display: block;
-      background: linear-gradient(to right, #00ffff, #0088ff);
+    .download-btn {
+      background: #00ffae;
       color: #000;
-      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
-    }
-
-    button:hover {
-      filter: brightness(1.1);
-    }
-
-    .msg {
-      font-size: 14px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 10px 20px;
-      border-left: 5px solid #00ffff;
-      border-radius: 8px;
-      display: none;
-      margin-top: 20px;
-    }
-
-    .history-container {
-      background: transparent;
-      border-radius: 16px;
-      padding: 15px 0;
-      margin-top: 5px;
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .history-container h3 {
-      margin-bottom: 10px;
-      color: #00ffff;
-    }
-
-    .history ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .history li {
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 14px;
-      min-width: 50px;
-      text-align: center;
-      color: #fff;
-    }
-
-    .green { background-color: #4CAF50; }
-    .blue { background-color: #2196F3; }
-    .orange { background-color: #FF9800; }
-    .purple { background-color: #9C27B0; }
-    .red { background-color: #F44336; }
-    .pink { background-color: #E91E63; }
-
-    .vip-buttons {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
       width: 90%;
-      max-width: 320px;
- 
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      max-width: 300px;
     }
-
+    .download-btn:hover {
+      background: #00e0a0;
+    }
     footer {
-      margin-top: 25px;
-      font-size: 18px;
-      color: #bbb;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 1rem;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>BOTGPT</h1>
+    <p>Aplicativo com inteligência artificial para prever a próxima vela do Aviator na ElephantBet. Estratégia, precisão e tecnologia ao teu alcance.</p>
+  </header>
 
-  <div class="header">SPA Hacker</div>
-  <h4>O segredo dos campeões</h4>
-
-  <div class="predictor">
-    <div class="circle-wrapper">
-      <div class="circle"></div>
-      <div class="number" id="multiplier">0.00x</div>
-    </div>
-
-   
+  <div class="download-section">
+    <button class="download-btn" onclick="baixarApp()">📥 Baixar para Android</button>
   </div>
 
-  <div class="vip-buttons">
-     <button onclick="startHack()" id="predictBtn">🚀 Hackear Próxima Vela</button>
-    <button onclick="location.href='sintronizar.html'">🔐 Sincronizar com Elephantbet</button>
-    <button onclick="location.href='sintronizar2.html'">👑 Acessar SPA HACHER SUPREMO</button>
-  </div>
-
-  <div class="msg" id="mensagemBot"></div>
-
-  <div class="history-container">
-    <h3>Histórico de Velas</h3>
-    <div class="history">
-      <ul id="historyList"></ul>
-    </div>
-  </div>
-
-  <footer>Conectado com inteligência artificial | <a href="#" style="color: #00ffff;"></a></footer>
+  <footer>
+    <p><strong>Aviso:</strong> BOTGPT utiliza algoritmos de previsão e não garante 100% de acerto. Use com responsabilidade.</p>
+  </footer>
 
   <script>
-    const predefinedMultipliers = [38.76, 1.71, 1.18, 5.94, 1.89, 19.27, 8.12];
-    let currentIndex = 0;
-
-    const colorClasses = {
-      low: "blue",     // Valores abaixo de 1.99
-      medium: "purple", // Valores entre 2.00 e 9.99
-      high: "pink"     // Valores de 10.00 para cima
-    };
-
-    function getColorClass(valueNum) {
-      if (valueNum >= 10.00) return colorClasses.high;
-      else if (valueNum >= 2.00) return colorClasses.medium;
-      else return colorClasses.low;
+    function baixarApp() {
+      const link = document.createElement('a');
+      link.href = "BOTGPT.apk"; // Atualiza com o link real
+      link.download = "botgpt.apk";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-
-    function generateRandomMultiplier() {
-      const value = predefinedMultipliers[currentIndex % predefinedMultipliers.length];
-      currentIndex++;
-      return value.toFixed(2);
-    }
-
-  function startHack() {
-  const display = document.getElementById("multiplier");
-  const historyList = document.getElementById("historyList");
-  const button = document.getElementById("predictBtn");
-
-  button.disabled = true; // Desativar botão temporariamente
-  const finalValue = parseFloat(generateRandomMultiplier());
-
-  let currentValue = 1.00;
-  const speed = 30;
-  const increment = (finalValue - currentValue) / 50;
-
-  display.textContent = currentValue.toFixed(2) + "x";
-
-  const counterInterval = setInterval(() => {
-    if (currentValue >= finalValue) {
-      clearInterval(counterInterval);
-      display.textContent = finalValue.toFixed(2) + "x";
-
-      const li = document.createElement("li");
-      li.textContent = finalValue.toFixed(2) + "x";
-      li.classList.add(getColorClass(finalValue));
-
-      historyList.insertBefore(li, historyList.firstChild);
-      if (historyList.children.length > 12) {
-        historyList.removeChild(historyList.lastChild);
-      }
-
-      button.disabled = false; // Reativar botão
-    } else {
-      currentValue += increment;
-      display.textContent = currentValue.toFixed(2) + "x";
-    }
-  }, speed);
-}
-
-</script>
-
-
+  </script>
 </body>
 </html>
+
+
